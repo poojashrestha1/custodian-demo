@@ -1,0 +1,73 @@
+{
+  "policy": {
+    "name": "notify-ec2-with-public-ip",
+    "resource": "ec2",
+    "description": "No instances should have a public ip attached\nNotify EC2 instances launched with public IP\n",
+    "mode": {
+      "type": "periodic",
+      "schedule": "rate(2 minutes)",
+      "role": "arn:aws:iam::975050157684:role/custodian-role",
+      "tags": {
+        "custodian-info": "mode=periodic:version=0.9.40"
+      }
+    },
+    "filters": [
+      {
+        "type": "value",
+        "key": "PublicIpAddress",
+        "value": "present"
+      }
+    ],
+    "actions": [
+      "stop"
+    ]
+  },
+  "version": "0.9.40",
+  "execution": {
+    "id": "99b403c5-6dfc-46a8-a96a-1f0db49b75e3",
+    "start": 1725878575.6640654,
+    "end_time": 1725878591.9023104,
+    "duration": 16.238245010375977
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [],
+    "cache": "C:\\Users\\pooja.shrestha_genes/.cache/c7n-org\\975050157684-us-east-1.cache",
+    "profile": null,
+    "account_id": "975050157684",
+    "assume_role": "arn:aws:iam::975050157684:role/AWSControlTowerExecution",
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": "default",
+    "metrics_enabled": false,
+    "metrics": null,
+    "output_dir": "output\\Snadbox\\us-east-1",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null
+  },
+  "sys-stats": {
+    "num_threads": 1,
+    "snapshot_time": 16.241833925247192,
+    "num_handles": 33,
+    "cpu_user": 0.3125,
+    "cpu_system": 0.234375,
+    "num_ctx_switches_voluntary": 1127,
+    "read_count": 1006,
+    "write_count": 381,
+    "write_bytes": 645546,
+    "read_bytes": 10466003,
+    "rss": 47550464,
+    "vms": 45641728
+  },
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "lambda.UpdateFunctionCode": 1,
+    "lambda.GetFunctionConfiguration": 2,
+    "events.DescribeRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1
+  },
+  "metrics": []
+}

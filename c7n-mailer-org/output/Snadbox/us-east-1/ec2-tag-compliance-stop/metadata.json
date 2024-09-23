@@ -1,0 +1,77 @@
+{
+  "policy": {
+    "name": "ec2-tag-compliance-stop",
+    "resource": "ec2",
+    "comments": "Deletes the instances with delete mark previously if no action is taken.\n",
+    "mode": {
+      "type": "periodic",
+      "schedule": "rate(5 minutes)",
+      "role": "arn:aws:iam::975050157684:role/CloudCustodian",
+      "tags": {
+        "custodian-info": "mode=periodic:version=0.9.40"
+      }
+    },
+    "filters": [
+      {
+        "type": "marked-for-op",
+        "tag": "deletionmark",
+        "op": "stop"
+      },
+      {
+        "tag:postpone": "absent"
+      }
+    ],
+    "actions": [
+      "stop"
+    ]
+  },
+  "version": "0.9.40",
+  "execution": {
+    "id": "5cb1dd67-0422-46d3-a31d-775622a82fd2",
+    "start": 1725970005.4818902,
+    "end_time": 1725970035.702421,
+    "duration": 30.22053074836731
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [],
+    "cache": "C:\\Users\\pooja.shrestha_genes/.cache/c7n-org\\975050157684-us-east-1.cache",
+    "profile": null,
+    "account_id": "975050157684",
+    "assume_role": "arn:aws:iam::975050157684:role/AWSControlTowerExecution",
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": "default",
+    "metrics_enabled": false,
+    "metrics": null,
+    "output_dir": "output\\Snadbox\\us-east-1",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null
+  },
+  "sys-stats": {
+    "num_threads": -3,
+    "snapshot_time": 30.221856594085693,
+    "num_handles": 8,
+    "cpu_user": 0.28125,
+    "cpu_system": 0.265625,
+    "num_ctx_switches_voluntary": 1194,
+    "read_count": 890,
+    "write_count": 380,
+    "write_bytes": 645544,
+    "read_bytes": 9208651,
+    "rss": 9994240,
+    "vms": 9859072
+  },
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "lambda.UpdateFunctionCode": 1,
+    "lambda.GetFunctionConfiguration": 2,
+    "events.DescribeRule": 1,
+    "events.PutRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1
+  },
+  "metrics": []
+}

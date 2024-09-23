@@ -1,0 +1,6 @@
+2024-09-10 10:42:00,936 - custodian.policy - INFO - Provisioning policy lambda: mailer-test region: us-east-1
+2024-09-10 10:42:03,647 - custodian.serverless - INFO - Publishing custodian policy lambda function custodian-mailer-test
+2024-09-10 10:47:55,366 - custodian.policy - INFO - Provisioning policy lambda: mailer-test region: us-east-1
+2024-09-10 10:52:13,253 - custodian.policy - INFO - Provisioning policy lambda: mailer-test region: us-east-1
+2024-09-10 14:16:11,852 - custodian.policy - INFO - Provisioning policy lambda: mailer-test region: us-east-1
+2024-09-10 14:20:56,072 - custodian.policy - INFO - Provisioning policy lambda: mailer-test region: us-east-1

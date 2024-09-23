@@ -1,0 +1,12 @@
+accounts:
+  # - account_id: "767397827931"
+  #   name: UAT_Hermes
+  #   role: arn:aws:iam::767397827931:role/AWSControlTowerExecution
+  #   regions:
+  #   - us-east-1
+
+  - account_id: "975050157684"
+    name: Snadbox
+    role: arn:aws:iam::975050157684:role/AWSControlTowerExecution
+    regions:
+    - us-east-1

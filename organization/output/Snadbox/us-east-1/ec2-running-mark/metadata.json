@@ -1,0 +1,81 @@
+{
+  "policy": {
+    "name": "ec2-running-mark",
+    "resource": "ec2",
+    "comments": "Marks EC2 instances that have been running for more than 5 hours for deletion. \n",
+    "mode": {
+      "type": "periodic",
+      "schedule": "rate(7 minutes)",
+      "role": "arn:aws:iam::975050157684:role/CloudCustodian",
+      "tags": {
+        "custodian-info": "mode=periodic:version=0.9.40"
+      }
+    },
+    "filters": [
+      {
+        "type": "value",
+        "key": "State.Name",
+        "value": "running"
+      },
+      {
+        "type": "instance-age",
+        "op": "greater-than",
+        "hours": 0.0167
+      }
+    ],
+    "actions": [
+      {
+        "type": "mark-for-op",
+        "tag": "deletionmark",
+        "op": "stop",
+        "hours": 0.0833
+      }
+    ]
+  },
+  "version": "0.9.40",
+  "execution": {
+    "id": "4490114c-46cc-49b8-8e8f-9a01e6ec0172",
+    "start": 1725961997.2231097,
+    "end_time": 1725962005.5134845,
+    "duration": 8.290374755859375
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [],
+    "cache": "C:\\Users\\pooja.shrestha_genes/.cache/c7n-org\\975050157684-us-east-1.cache",
+    "profile": null,
+    "account_id": "975050157684",
+    "assume_role": "arn:aws:iam::975050157684:role/AWSControlTowerExecution",
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": "default",
+    "metrics_enabled": false,
+    "metrics": null,
+    "output_dir": "output\\Snadbox\\us-east-1",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null
+  },
+  "sys-stats": {
+    "num_threads": 1,
+    "snapshot_time": 8.293394327163696,
+    "num_handles": 33,
+    "cpu_user": 0.234375,
+    "cpu_system": 0.09375,
+    "num_ctx_switches_voluntary": 436,
+    "read_count": 1004,
+    "write_count": 381,
+    "write_bytes": 645595,
+    "read_bytes": 10461834,
+    "rss": 47685632,
+    "vms": 45252608
+  },
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "events.DescribeRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1
+  },
+  "metrics": []
+}

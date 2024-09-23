@@ -1,0 +1,26 @@
+policies:
+  - name: mailer-test
+    resource: s3
+    mode:
+      type: cloudtrail
+      role: CloudCustodian
+      events:
+        - source: s3.amazonaws.com
+          event: CreateBucket
+          ids: "requestParameters.bucketName"
+    filters:
+      - type: value
+        key: "tag:owner"
+        value: absent
+    actions:
+      - type: notify
+        template: default
+        subject: testing the c7n mailer
+        to:
+          - pooja.shrestha@genesesolution.com
+        transport:
+          type: sqs
+          queue: arn:aws:sqs:us-east-1:905418059815:custodian-sqs
+
+
+

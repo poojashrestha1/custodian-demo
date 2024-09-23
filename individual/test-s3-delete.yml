@@ -1,0 +1,10 @@
+policies:
+  - name: delete-custo-s3-buckets
+    resource: s3
+    filters:
+      - type: value
+        key: Name
+        op: glob
+        value: test*
+    actions:
+      - type: delete

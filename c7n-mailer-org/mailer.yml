@@ -1,0 +1,5 @@
+queue_url: https://sqs.us-east-1.amazonaws.com/905418059815/custodian-sqs
+role: arn:aws:iam::905418059815:role/CloudCustodian
+from_address: info@valmikiai.com
+contact_tags: ["owner"]
+org_domain: genesesolution.com

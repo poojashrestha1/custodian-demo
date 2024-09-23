@@ -1,0 +1,67 @@
+policies:
+
+- name: ec2-running-mark
+  resource: ec2
+  comments: |
+    Marks EC2 instances that have been running for more than 5 hours for deletion. 
+  mode:
+      type: periodic
+      # schedule: "cron(15 08,12 * * ? *)"
+      schedule: rate(3 minutes)
+      role: CloudCustodian
+  filters:
+      - type: value
+        key: State.Name
+        value: running
+      - type: instance-age
+        op: greater-than
+        hours: 0.03333
+  actions:
+    - type: mark-for-op
+      tag: deletionmark
+      op: stop
+      hours: 0.0833
+    - type: notify
+      template: default
+      subject: "EC2 running for too long - [custodian-alert {{ account_id }} / {{ region }}]"
+      to:
+        - resource-owner
+      owner_absent_contact:
+        - pooja.shrestha@genesesolution.com
+      transport:
+        type: sqs
+        queue: arn:aws:sqs:us-east-1:905418059815:custodian-sqs
+      
+
+- name: ec2-tag-compliance-unmark
+  resource: ec2
+  comments: |
+    If 'postpone' tag is added to the instance, deletion mark will be removed.
+  mode:
+      type: periodic
+      # schedule: "cron(10 09,13 * * ? *)"
+      schedule: rate(4 minutes)
+      role: CloudCustodian
+  filters:
+    - "tag:postpone": present
+  actions:
+    - type: remove-tag
+      tags:
+        - deletionmark
+
+- name: ec2-tag-compliance-stop
+  resource: ec2
+  comments: |
+    Deletes the instances with delete mark previously if no action is taken.
+  mode:
+      type: periodic
+      # schedule: "cron(15 09,13 * * ? *)"
+      schedule: rate(5 minutes)
+      role: CloudCustodian
+  filters:
+    - type: marked-for-op
+      tag: deletionmark
+      op: stop
+    - "tag:postpone": absent
+  actions:
+    - stop

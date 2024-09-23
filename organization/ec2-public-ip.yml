@@ -1,0 +1,16 @@
+policies:
+  - name: notify-ec2-with-public-ip
+    resource: ec2
+    description: |
+      No instances should have a public ip attached
+      Notify EC2 instances launched with public IP
+    mode:
+      type: periodic
+      schedule: rate(2 minutes)
+      role: custodian-role
+    filters:
+      - type: value
+        key: PublicIpAddress
+        value: present
+    actions:
+      - stop

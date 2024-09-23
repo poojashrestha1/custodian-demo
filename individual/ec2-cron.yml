@@ -1,0 +1,47 @@
+policies:
+
+- name: ec2-running-mark
+  resource: ec2
+  mode:
+      type: periodic
+      schedule: "cron(15 08,12 * * ? *)"
+      role: arn:aws:iam::975050157684:role/CloudCustodian
+  filters:
+      - type: value
+        key: State.Name
+        value: running
+      - type: instance-age
+        op: greater-than
+        hours: 5
+  actions:
+    - type: mark-for-op
+      tag: deletionmark
+      op: stop
+      hours: 1
+
+- name: ec2-tag-compliance-unmark
+  resource: ec2
+  mode:
+      type: periodic
+      schedule: "cron(10 09,13 * * ? *)"
+      role: arn:aws:iam::975050157684:role/CloudCustodian
+  filters:
+    - "tag:postponestop": present
+  actions:
+    - type: remove-tag
+      tags:
+        - deletionmark
+
+- name: ec2-tag-compliance-stop
+  resource: ec2
+  mode:
+      type: periodic
+      schedule: "cron(15 09,13 * * ? *)"
+      role: arn:aws:iam::975050157684:role/CloudCustodian
+  filters:
+    - type: marked-for-op
+      tag: deletionmark
+      op: stop
+    - "tag:postponestop": absent
+  actions:
+    - stop

@@ -1,0 +1,77 @@
+{
+  "policy": {
+    "name": "ec2-tag-compliance-unmark",
+    "resource": "ec2",
+    "comments": "If 'postpone' tag is added to the instance, deletion mark will be removed.\n",
+    "mode": {
+      "type": "periodic",
+      "schedule": "rate(4 minutes)",
+      "role": "arn:aws:iam::975050157684:role/CloudCustodian",
+      "tags": {
+        "custodian-info": "mode=periodic:version=0.9.40"
+      }
+    },
+    "filters": [
+      {
+        "tag:postpone": "present"
+      }
+    ],
+    "actions": [
+      {
+        "type": "remove-tag",
+        "tags": [
+          "deletionmark"
+        ]
+      }
+    ]
+  },
+  "version": "0.9.40",
+  "execution": {
+    "id": "eb3f8dc3-7e99-4acb-8f41-5a65e03176e2",
+    "start": 1725969980.2787383,
+    "end_time": 1725970005.4673696,
+    "duration": 25.188631296157837
+  },
+  "config": {
+    "region": "us-east-1",
+    "regions": [],
+    "cache": "C:\\Users\\pooja.shrestha_genes/.cache/c7n-org\\975050157684-us-east-1.cache",
+    "profile": null,
+    "account_id": "975050157684",
+    "assume_role": "arn:aws:iam::975050157684:role/AWSControlTowerExecution",
+    "session_policy": null,
+    "external_id": null,
+    "log_group": null,
+    "tracer": "default",
+    "metrics_enabled": false,
+    "metrics": null,
+    "output_dir": "output\\Snadbox\\us-east-1",
+    "cache_period": 0,
+    "dryrun": false,
+    "authorization_file": null
+  },
+  "sys-stats": {
+    "num_threads": 2,
+    "snapshot_time": 25.18897557258606,
+    "num_handles": 8,
+    "cpu_user": 0.25,
+    "cpu_system": 0.125,
+    "num_ctx_switches_voluntary": 584,
+    "read_count": 890,
+    "write_count": 380,
+    "write_bytes": 645538,
+    "read_bytes": 9208639,
+    "rss": 1568768,
+    "vms": 2211840
+  },
+  "api-stats": {
+    "lambda.GetFunction": 1,
+    "lambda.UpdateFunctionCode": 1,
+    "lambda.GetFunctionConfiguration": 2,
+    "events.DescribeRule": 1,
+    "events.PutRule": 1,
+    "lambda.AddPermission": 1,
+    "events.ListTargetsByRule": 1
+  },
+  "metrics": []
+}
